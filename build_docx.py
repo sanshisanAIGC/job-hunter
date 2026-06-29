@@ -12,8 +12,8 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 md_text = Path('data/resume_optimized.md').read_text('utf-8')
 
 # Colors
-GREEN     = RGBColor(0x5a, 0x9a, 0x5a)
-GREEN_DARK = RGBColor(0x3d, 0x7a, 0x3d)
+BLUE      = RGBColor(0x4a, 0x63, 0x80)
+BLUE_DARK = RGBColor(0x3a, 0x50, 0x68)
 BLACK     = RGBColor(0x1a, 0x1a, 0x1a)
 GRAY      = RGBColor(0x55, 0x55, 0x55)
 LGRAY     = RGBColor(0x88, 0x88, 0x88)
@@ -53,7 +53,7 @@ def add_green_header(doc):
     left = table.cell(0, 0)
     left.width = Cm(12)
     shading = OxmlElement('w:shd')
-    shading.set(qn('w:fill'), '5a9a5a')
+    shading.set(qn('w:fill'), '4a6380')
     shading.set(qn('w:val'), 'clear')
     left._tc.get_or_add_tcPr().append(shading)
     left.paragraphs[0].clear()
@@ -78,7 +78,7 @@ def add_green_header(doc):
     right = table.cell(0, 1)
     right.width = Cm(6)
     shading2 = OxmlElement('w:shd')
-    shading2.set(qn('w:fill'), '3d7a3d')
+    shading2.set(qn('w:fill'), '3a5068')
     shading2.set(qn('w:val'), 'clear')
     right._tc.get_or_add_tcPr().append(shading2)
     right.paragraphs[0].clear()
@@ -101,7 +101,7 @@ def add_section_title(doc, title):
     left_border.set(qn('w:val'), 'single')
     left_border.set(qn('w:sz'), '12')
     left_border.set(qn('w:space'), '6')
-    left_border.set(qn('w:color'), '5a9a5a')
+    left_border.set(qn('w:color'), '4a6380')
     pBdr.append(left_border)
     pPr.append(pBdr)
     run = p.add_run(title)
@@ -183,7 +183,7 @@ for block in re.split(r'\n### ', '\n' + get_section('工作经历')):
             break
     add_para(doc, h, size=13, bold=True, spacing_after=2)
     if dur:
-        add_para(doc, dur, size=10, color=GREEN, spacing_after=4)
+        add_para(doc, dur, size=10, color=RGBColor(0x4a, 0x63, 0x80), spacing_after=4)
     for l in lines[1:]:
         s = l.strip()
         if s.startswith('- ') and '技术栈' not in s:
@@ -248,7 +248,7 @@ p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = p.add_run('叁十三 · AIGC创作者  |  深圳  |  sanshisanAIGC')
 set_font(run, FONT_BODY, 9, color=LGRAY)
 
-output = Path('data/resume_gw.docx')
+output = Path('data/resume_blue.docx')
 doc.save(str(output))
 print(f'Word 简历已生成: {output}')
 print(f'A4 尺寸 | 黑体标题 + 仿宋正文 | 公文标准字体')
