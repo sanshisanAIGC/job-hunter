@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>叁十三 · AIGC工作室 — 作品集</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Microsoft YaHei', sans-serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.6; }
+a { color: #1a1a1a; text-decoration: none; }
+a:hover { color: #5a9a5a; }
+.hero { background: #f5f5f0; padding: 80px 40px 60px; text-align: center; border-bottom: 1px solid #e0ddd5; }
+.hero h1 { font-size: 42px; font-weight: 700; letter-spacing: 3px; color: #1a1a1a; margin-bottom: 12px; }
+.hero .tagline { font-size: 18px; color: #333; margin-bottom: 8px; }
+.hero p { font-size: 15px; color: #555; max-width: 600px; margin: 12px auto; }
+.stats { display: flex; justify-content: center; gap: 48px; margin-top: 36px; flex-wrap: wrap; }
+.stat-item { text-align: center; }
+.stat-num { font-size: 38px; font-weight: 700; color: #1a1a1a; }
+.stat-label { font-size: 13px; color: #666; margin-top: 4px; }
+.container { max-width: 1040px; margin: 0 auto; padding: 60px 32px; }
+.section-title { font-size: 22px; font-weight: 700; color: #1a1a1a; margin-bottom: 28px; padding-left: 14px; border-left: 3px solid #5a9a5a; letter-spacing: 1px; }
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.project-card { background: #fff; border-radius: 10px; overflow: hidden; transition: all 0.3s; border: 1px solid #e8e5dd; }
+.project-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(90,154,90,0.08); border-color: #a0c8a0; }
+.card-body { padding: 22px 24px 16px; }
+.card-body h3 { font-size: 17px; color: #1a1a1a; margin-bottom: 6px; }
+.card-body .role { font-size: 12px; color: #5a9a5a; margin-bottom: 10px; }
+.card-body ul { padding-left: 18px; }
+.card-body li { font-size: 13px; color: #333; line-height: 1.7; margin-bottom: 3px; }
+.card-body li::marker { color: #5a9a5a; }
+.card-tags { padding: 10px 24px; border-top: 1px solid #f0efe8; display: flex; flex-wrap: wrap; gap: 5px; }
+.tag { font-size: 11px; padding: 2px 8px; border-radius: 3px; background: #f0efe8; color: #555; }
+.skills-section { margin: 60px 0; }
+.skill-bar-group { margin-bottom: 18px; }
+.skill-bar-label { font-size: 14px; margin-bottom: 5px; color: #1a1a1a; }
+.skill-bar-track { background: #e8e5dd; border-radius: 4px; height: 8px; overflow: hidden; }
+.skill-bar-fill { height: 100%; border-radius: 4px; background: #5a9a5a; }
+.links-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
+.link-card { background: #fff; border: 1px solid #e8e5dd; border-radius: 8px; padding: 18px 22px; display: flex; align-items: center; gap: 14px; transition: all 0.3s; }
+.link-card:hover { border-color: #5a9a5a; }
+.link-icon { width: 44px; height: 44px; border-radius: 8px; background: #f0efe8; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.link-info .name { font-size: 15px; font-weight: 600; color: #1a1a1a; }
+.link-info .desc { font-size: 12px; color: #555; }
+.link-info .url { font-size: 11px; color: #5a9a5a; word-break: break-all; }
+.timeline { position: relative; padding-left: 28px; border-left: 2px solid #ddd8c8; margin-left: 10px; }
+.timeline-item { margin-bottom: 24px; position: relative; }
+.timeline-item::before { content: ''; position: absolute; left: -35px; top: 6px; width: 12px; height: 12px; background: #fff; border: 2px solid #5a9a5a; border-radius: 50%; }
+.timeline-date { font-size: 12px; color: #5a9a5a; margin-bottom: 2px; }
+.timeline-title { font-size: 15px; font-weight: 600; color: #1a1a1a; }
+.timeline-sub { font-size: 13px; color: #555; margin-top: 2px; }
+.footer { text-align: center; padding: 40px; color: #999; font-size: 13px; border-top: 1px solid #e8e5dd; margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>叁十三 · AIGC工作室</h1>
+    <div class="tagline">AI 内容创作 · 模型训练 · 自动化工具开发</div>
+    <p>3年AIGC全栈实践，专注AI内容生产自动化与工作流产品化。从模型训练到Agent应用开发，用技术驱动内容规模化增长。</p>
+    <div class="stats">
+        <div class="stat-item"><div class="stat-num">70+</div><div class="stat-label">ComfyUI工作流</div></div>
+        <div class="stat-item"><div class="stat-num">80K+</div><div class="stat-label">Liblib模型使用量</div></div>
+        <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">LoRA模型/作品发布</div></div>
+        <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">GitHub开源项目</div></div>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title">开源项目</h2>
+    <div class="project-grid">
+        <div class="project-card">
+            <div class="card-body">
+                <h3>novel-factory</h3>
+                <div class="role">独立开发者 | AI长篇小说自动写作系统</div>
+                <ul>
+                    <li>AI作者/编辑/审校多Agent协作，全自动写作→审校→发布</li>
+                    <li>DeepSeek v4 Pro驱动，集成飞书文档API云端同步</li>
+                    <li>systemd守护进程7×24运行，单次生成10万字长篇</li>
+                </ul>
+            </div>
+            <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">DeepSeek</span><span class="tag">多Agent</span><span class="tag">飞书API</span><span class="tag">systemd</span>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="card-body">
+                <h3>bilibili-to-feishu-note-bot</h3>
+                <div class="role">独立开发者 | B站视频→AI结构化笔记机器人</div>
+                <ul>
+                    <li>视频下载→Whisper转录→DeepSeek结构化笔记全流程自动化</li>
+                    <li>自动生成带时间戳、关键观点的飞书文档，准确率90%+</li>
+                    <li>定时监控UP主更新，累计处理视频500+个</li>
+                </ul>
+            </div>
+            <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">Whisper</span><span class="tag">DeepSeek</span><span class="tag">B站API</span><span class="tag">ffmpeg</span>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="card-body">
+                <h3>job-hunter</h3>
+                <div class="role">独立开发者 | Boss直聘AI自动求职系统</div>
+                <ul>
+                    <li>AI简历解析+JD深度匹配评分+个性化招呼语自动生成</li>
+                    <li>boss-agent-cli集成，支持自动搜索/收藏/投递</li>
+                    <li>AI事实核查+飞书实时通知，全流程自动化</li>
+                </ul>
+            </div>
+            <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">DeepSeek</span><span class="tag">Playwright</span><span class="tag">Agent</span><span class="tag">飞书</span>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="card-body">
+                <h3>hot-article-factory</h3>
+                <div class="role">独立开发者 | AI热搜文章自动生产系统</div>
+                <ul>
+                    <li>微博/抖音热搜实时抓取+AI选题+AI写作+AI事实核查</li>
+                    <li>头条风格评论文章生成（800-1500字），每日3篇</li>
+                    <li>全链路无人值守，每日成本约¥0.03</li>
+                </ul>
+            </div>
+            <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">DeepSeek</span><span class="tag">Playwright</span><span class="tag">数据采集</span><span class="tag">调度</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="skills-section">
+        <h2 class="section-title">技能矩阵</h2>
+        <div class="skill-bar-group">
+            <div class="skill-bar-label">Stable Diffusion / ComfyUI 工作流</div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-bar-group">
+            <div class="skill-bar-label">LoRA 模型训练与调优</div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-bar-group">
+            <div class="skill-bar-label">Python / AI Agent（Claude Code / Codex / Open Claw）</div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-group">
+            <div class="skill-bar-label">飞书 / DeepSeek / B站 API 集成</div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-group">
+            <div class="skill-bar-label">AI视频生成（AnimateDiff / SVD）</div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%"></div></div>
+        </div>
+        <div class="skill-bar-group">
+            <div class="skill-bar-label">Photoshop / 剪映 / 后期处理</div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">社区与链接</h2>
+    <div class="links-section">
+        <a href="https://www.liblib.art/userpage/494bc2ddc8844273b05f63827b4dbcc5/publish" target="_blank" class="link-card">
+            <div class="link-icon">🎨</div>
+            <div class="link-info">
+                <div class="name">Liblib · 叁十三</div>
+                <div class="desc">LoRA模型创作者 | 50+作品 | 80K+使用量</div>
+                <div class="url">liblib.art/userpage/494bc2dd...</div>
+            </div>
+        </a>
+        <a href="https://www.xiaohongshu.com/user/profile/5e73caac00000000010074e6" target="_blank" class="link-card">
+            <div class="link-icon">📕</div>
+            <div class="link-info">
+                <div class="name">小红书 · 叁十三AIGC工作室</div>
+                <div class="desc">AI模型/工作流/作品分享 | 1.7K+赞</div>
+                <div class="url">xiaohongshu.com/user/profile/5e73ca...</div>
+            </div>
+        </a>
+        <a href="https://github.com/sanshisanAIGC" target="_blank" class="link-card">
+            <div class="link-icon">💻</div>
+            <div class="link-info">
+                <div class="name">GitHub · sanshisanAIGC</div>
+                <div class="desc">4个开源项目 | Python全栈</div>
+                <div class="url">github.com/sanshisanAIGC</div>
+            </div>
+        </a>
+        <a href="https://b23.tv/PgzNC8Z" target="_blank" class="link-card">
+            <div class="link-icon">📺</div>
+            <div class="link-info">
+                <div class="name">B站 · AI教程创作者</div>
+                <div class="desc">50篇教程笔记 | 16万+阅读量</div>
+                <div class="url">b23.tv/PgzNC8Z</div>
+            </div>
+        </a>
+    </div>
+
+    <div style="margin-top: 60px;">
+        <h2 class="section-title">工作历程</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2026.03 — 2026.06</div>
+                <div class="timeline-title">AI训练师 @ 深圳安达曼科技</div>
+                <div class="timeline-sub">模型训练 + Agent工具链探索（Claude Code / Codex / Open Claw），明确AI科技自媒体职业方向</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2023.12 — 2026.01</div>
+                <div class="timeline-title">AI训练负责人 @ 草图里（广州）科技</div>
+                <div class="timeline-sub">管理10+人团队，搭建70+工作流库，推动研发成果产品化</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2022.12 — 2023.12</div>
+                <div class="timeline-title">AIGC技术应用与行业实践</div>
+                <div class="timeline-sub">B站AIGC内容创作起步，为2家企业搭建AIGC设计管线</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>叁十三 · AIGC工作室 &nbsp;|&nbsp; 深圳 &nbsp;|&nbsp; sanshisanAIGC</p>
+</div>
+
+</body>
+</html>
