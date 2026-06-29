@@ -11,31 +11,29 @@ from docx.oxml import OxmlElement
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 md_text = Path('data/resume_optimized.md').read_text('utf-8')
 
-# Colors
-DARK_BLUE = RGBColor(0x1a, 0x1a, 0x2e)
-MID_BLUE  = RGBColor(0x16, 0x21, 0x3e)
-DEEP_BLUE = RGBColor(0x0f, 0x34, 0x60)
-ACCENT    = RGBColor(0xe9, 0x45, 0x60)
+# Colors — green theme matching portfolio
 GREEN     = RGBColor(0x5a, 0x9a, 0x5a)
+GREEN_DARK = RGBColor(0x3d, 0x7a, 0x3d)
+GREEN_LIGHT = RGBColor(0x8a, 0xc8, 0x8a)
 BLACK     = RGBColor(0x1a, 0x1a, 0x1a)
+DARK      = RGBColor(0x33, 0x33, 0x33)
 GRAY      = RGBColor(0x55, 0x55, 0x55)
 LGRAY     = RGBColor(0x88, 0x88, 0x88)
 WHITE     = RGBColor(0xff, 0xff, 0xff)
-LIGHT_BG  = RGBColor(0xf8, 0xf9, 0xfa)
+BG_GREEN  = RGBColor(0xf0, 0xf5, 0xf0)
+HEADER_BG = RGBColor(0x5a, 0x9a, 0x5a)  # Green header like portfolio
 
 def get_section(title):
     pattern = rf'## {title}\n(.*?)(?=\n## |\n---|\Z)'
     m = re.search(pattern, md_text, re.DOTALL)
     return m.group(1).strip() if m else ''
 
-def add_blue_header(doc):
-    """Add the dark blue header section with name, title, photo placeholder"""
-    # Create a table for the header
+def add_green_header(doc):
+    """Green header matching portfolio style"""
     table = doc.add_table(rows=1, cols=2)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = True
 
-    # Set table width to full page
     tbl = table._tbl
     tblPr = tbl.tblPr if tbl.tblPr is not None else OxmlElement('w:tblPr')
     tblW = OxmlElement('w:tblW')
@@ -43,12 +41,11 @@ def add_blue_header(doc):
     tblW.set(qn('w:type'), 'pct')
     tblPr.append(tblW)
 
-    # Left cell - name and title
+    # Left cell - green background
     left = table.cell(0, 0)
     left.width = Cm(12)
-    # Blue background
     shading = OxmlElement('w:shd')
-    shading.set(qn('w:fill'), '1a1a2e')
+    shading.set(qn('w:fill'), '5a9a5a')
     shading.set(qn('w:val'), 'clear')
     left._tc.get_or_add_tcPr().append(shading)
 
@@ -69,16 +66,13 @@ def add_blue_header(doc):
     p2.paragraph_format.space_after = Pt(0)
     p2.paragraph_format.left_indent = Cm(1.2)
     run2 = p2.add_run('AIGC内容创作 · AI科技自媒体 · 深圳 · 15-20K')
-    run2.font.size = Pt(10); run2.font.color.rgb = RGBColor(0xcc, 0xcc, 0xdd)
-
-    p3 = left.add_paragraph()
-    p3.paragraph_format.space_before = Pt(16)
+    run2.font.size = Pt(10); run2.font.color.rgb = WHITE
 
     # Right cell - photo placeholder
     right = table.cell(0, 1)
     right.width = Cm(6)
     shading2 = OxmlElement('w:shd')
-    shading2.set(qn('w:fill'), '16213e')
+    shading2.set(qn('w:fill'), '3d7a3d')
     shading2.set(qn('w:val'), 'clear')
     right._tc.get_or_add_tcPr().append(shading2)
 
@@ -87,9 +81,9 @@ def add_blue_header(doc):
     pr.alignment = WD_ALIGN_PARAGRAPH.CENTER
     pr.paragraph_format.space_before = Pt(14)
     run_pr = pr.add_run('证件照')
-    run_pr.font.size = Pt(10); run_pr.font.color.rgb = RGBColor(0x88, 0x88, 0x99)
+    run_pr.font.size = Pt(10); run_pr.font.color.rgb = WHITE
 
-    doc.add_paragraph()  # spacer
+    doc.add_paragraph()
 
 def add_section_title(doc, title):
     """Add a section title with green left border"""
@@ -150,12 +144,12 @@ style.font.size = Pt(10)
 style.paragraph_format.space_after = Pt(4)
 
 # ── Header ──
-add_blue_header(doc)
+add_green_header(doc)
 
 # ── Summary ──
 add_section_title(doc, '个人概述')
 summary = get_section('个人简介')
-add_paragraph(doc, summary, size=10, color=GRAY)
+add_paragraph(doc, summary, size=10, color=BLACK)
 
 # ── Skills ──
 add_section_title(doc, '核心技能')
@@ -169,7 +163,7 @@ for line in get_section('技能栈').split('\n'):
         run_l = p.add_run(f'{level}: ')
         run_l.font.size = Pt(10); run_l.font.bold = True; run_l.font.color.rgb = BLACK
         run_i = p.add_run(items)
-        run_i.font.size = Pt(10); run_i.font.color.rgb = DARK_BLUE
+        run_i.font.size = Pt(10); run_i.font.color.rgb = BLACK
 
 # ── Work Experience ──
 add_section_title(doc, '工作经历')
@@ -230,7 +224,7 @@ edu_major = parts[2].strip() if len(parts)>2 else ''
 add_paragraph(doc, f'{edu_school}  |  {edu_degree}  |  {edu_major}', size=11, bold=True)
 for l in edu_lines[1:]:
     if l.strip().startswith('-'):
-        add_bullet(doc, l.strip('- ').strip(), size=10, color=GRAY)
+        add_bullet(doc, l.strip('- ').strip(), size=10, color=BLACK)
 
 # ── Portfolio ──
 add_section_title(doc, '作品集 & 社区影响力')
@@ -240,7 +234,7 @@ for l in portfolio_text.split('\n'):
         # Remove URLs for clean text
         text = re.sub(r'https?://[^\s)]+', '', l.strip('- ')).strip()
         if text:
-            add_paragraph(doc, text, size=10, color=GRAY, spacing_after=2)
+            add_paragraph(doc, text, size=10, color=BLACK, spacing_after=2)
 
 # ── Job Target ──
 add_section_title(doc, '求职意向')
@@ -258,7 +252,7 @@ run = p.add_run('叁十三 · AIGC创作者  |  深圳  |  sanshisanAIGC')
 run.font.size = Pt(8); run.font.color.rgb = LGRAY
 
 # ━━━━ Save ━━━━
-output = Path('data/resume.docx')
+output = Path('data/resume_docx_output.docx')
 doc.save(str(output))
 print(f'Word 简历已生成: {output}')
 print(f'A4 尺寸 | 样式与HTML一致 | 可直接编辑')
