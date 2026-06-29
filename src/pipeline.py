@@ -8,6 +8,7 @@ from src.ai.greeter import Greeter
 from src.ai.replier import Replier
 from src.boss.cli import BossCLI
 from src.resume.parser import ResumeParser
+from src.ai.optimizer import ResumeOptimizer
 from src.feishu.notifier import FeishuNotifier
 
 
@@ -31,6 +32,7 @@ class JobPipeline:
         self.ai = DeepSeekClient(deepseek_api_key, deepseek_base_url, deepseek_model)
         self.boss = BossCLI(self.data_dir)
         self.parser = ResumeParser(self.ai)
+        self.optimizer = ResumeOptimizer(self.ai, self.data_dir)
         self.notifier = FeishuNotifier(feishu_app_id, feishu_app_secret, feishu_open_id)
 
         # 延迟初始化（需要 resume 加载后）
@@ -39,6 +41,27 @@ class JobPipeline:
         self.matcher = None
         self.greeter = None
         self.replier = None
+
+    def optimize_resume(self, target_direction: str = "",
+                        target_city: str = "", target_salary: str = "") -> dict:
+        """AI 优化简历并生成可编辑文件"""
+        if not self.resume:
+            raise RuntimeError("请先加载简历: pipeline.load_resume()")
+
+        print("\n" + "=" * 60)
+        print("AI 简历优化")
+        print("=" * 60)
+
+        optimized = self.optimizer.optimize(
+            self.resume,
+            target_direction=target_direction or self.job_keywords,
+            target_city=target_city or self.job_city,
+            target_salary=target_salary,
+        )
+        json_file, md_file, html_file = self.optimizer.save_outputs(self.resume, optimized)
+        print(f"\n可视化简历: {html_file}")
+        print(f"可编辑简历: {md_file}")
+        return optimized
 
     def load_resume(self, source: str | Path) -> dict:
         """加载简历"""

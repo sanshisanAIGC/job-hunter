@@ -56,6 +56,16 @@ def cmd_run(args):
     print(f"\n完成！搜索 {stats['searched']} | 投递 {stats['applied']} | 跳过 {stats['skipped']}")
 
 
+def cmd_optimize(args):
+    """AI 优化简历"""
+    pipeline = create_pipeline()
+    pipeline.load_resume("")
+    pipeline.optimize_resume(
+        target_direction=args.direction or JOB_KEYWORDS,
+    )
+    print("\n简历已优化！打开 data/resume_optimized.md 查看和编辑")
+
+
 def cmd_check(args):
     """检查消息并回复"""
     pipeline = create_pipeline()
@@ -108,6 +118,8 @@ def main():
     p_setup.add_argument("--resume", required=True, help="简历文本或PDF路径")
 
     sub.add_parser("run", help="运行一轮搜索+投递")
+    p_opt = sub.add_parser("optimize", help="AI优化简历")
+    p_opt.add_argument("--direction", help="目标方向，如 'AI视频,Python AI'")
     sub.add_parser("check", help="检查HR消息并回复")
     sub.add_parser("schedule", help="启动定时调度器")
     sub.add_parser("status", help="查看状态")
@@ -123,8 +135,8 @@ def main():
         print(f"警告：缺少配置: {missing}")
 
     cmds = {
-        "setup": cmd_setup, "run": cmd_run, "check": cmd_check,
-        "schedule": cmd_schedule, "status": cmd_status, "login": cmd_login,
+        "setup": cmd_setup, "run": cmd_run, "optimize": cmd_optimize,
+        "check": cmd_check, "schedule": cmd_schedule, "status": cmd_status, "login": cmd_login,
     }
     cmds[args.command](args)
 

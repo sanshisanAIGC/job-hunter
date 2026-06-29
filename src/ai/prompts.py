@@ -155,3 +155,57 @@ INTENT_PROMPT = """分析 HR 消息的意图，判断类型和紧急程度。
 INTENT_USER = """HR 消息：{hr_message}
 
 分析意图。"""
+
+
+# ━━━━ 简历优化 ━━━━
+
+RESUME_OPTIMIZE_PROMPT = """你是一位顶级职业顾问和简历优化专家。请对以下简历进行全面优化，使其在求职市场上更具竞争力。
+
+## 优化原则
+
+### 1. 语言升级
+- 用有力的行动动词开头（主导/搭建/推动/实现/优化）
+- 将模糊描述转化为具体成果（"提升效率" → "将出图效率提升40%")
+- 量化所有可量化的成果（团队人数/项目规模/增长数据）
+
+### 2. ATS关键词优化
+- 针对目标方向：{target_direction}
+- 在技能、经历、项目中自然嵌入行业热门关键词
+- 保证简历既能通过ATS筛选，又能打动HR
+
+### 3. 结构优化
+- 个人简介：2-3句话概括核心竞争力
+- 技能栈：按熟练度分组（精通/熟练/了解）
+- 工作经历：STAR法则（情境-任务-行动-结果）
+- 项目经验：突出技术亮点和个人贡献
+- 作品集：GitHub/社区/平台影响力数据化
+
+### 4. 针对性强化
+- 目标城市：{target_city} | 期望薪资：{target_salary}
+- 突出与目标岗位最相关的经验和技能
+- 弱化或合并不太相关的经历
+
+## 输出格式
+{{"summary": "2-3句个人简介",
+  "optimized_skills": {{"精通": [], "熟练": [], "了解": []}},
+  "work_experience": [{{"company": "", "title": "", "duration": "", "highlights": ["STAR格式的亮点", ""], "tech_stack": []}}],
+  "projects": [{{"name": "", "role": "", "tech_stack": [], "highlights": ["", ""], "url": ""}}],
+  "education": {{"school": "", "degree": "", "major": "", "highlights": []}},
+  "portfolio": {{"github": "", "community": "", "data": {{"followers": 0, "stars": 0, "views": 0}}}},
+  "target_position": "",
+  "optimization_notes": ["具体改了哪里，为什么这样改"]
+}}"""
+
+RESUME_OPTIMIZE_USER = """## 原始简历
+{resume_json}
+
+## 目标方向
+{target_direction}
+
+## 目标城市/薪资
+{target_city} / {target_salary}
+
+## 补充信息（作品集/GitHub等）
+{extra_info}
+
+请进行全面优化。"""
