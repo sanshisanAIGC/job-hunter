@@ -1,4 +1,4 @@
-"""从 Markdown 简历生成可编辑 Word 文档 — 与 HTML 样式一致"""
+"""从 Markdown 简历生成可编辑 Word 文档 — 公文标准字体"""
 import re, sys, io
 from pathlib import Path
 from docx import Document
@@ -11,29 +11,38 @@ from docx.oxml import OxmlElement
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 md_text = Path('data/resume_optimized.md').read_text('utf-8')
 
-# Colors — green theme matching portfolio
+# Colors
 GREEN     = RGBColor(0x5a, 0x9a, 0x5a)
 GREEN_DARK = RGBColor(0x3d, 0x7a, 0x3d)
-GREEN_LIGHT = RGBColor(0x8a, 0xc8, 0x8a)
 BLACK     = RGBColor(0x1a, 0x1a, 0x1a)
-DARK      = RGBColor(0x33, 0x33, 0x33)
 GRAY      = RGBColor(0x55, 0x55, 0x55)
 LGRAY     = RGBColor(0x88, 0x88, 0x88)
 WHITE     = RGBColor(0xff, 0xff, 0xff)
-BG_GREEN  = RGBColor(0xf0, 0xf5, 0xf0)
-HEADER_BG = RGBColor(0x5a, 0x9a, 0x5a)  # Green header like portfolio
+
+FONT_TITLE = '黑体'   # 黑体
+FONT_BODY  = '仿宋'    # 仿宋
 
 def get_section(title):
     pattern = rf'## {title}\n(.*?)(?=\n## |\n---|\Z)'
     m = re.search(pattern, md_text, re.DOTALL)
     return m.group(1).strip() if m else ''
 
+def set_font(run, name, size, bold=False, color=BLACK):
+    run.font.name = name
+    run.font.size = Pt(size)
+    run.font.bold = bold
+    run.font.color.rgb = color
+    rPr = run._r.get_or_add_rPr()
+    rFonts = rPr.find(qn('w:rFonts'))
+    if rFonts is None:
+        rFonts = OxmlElement('w:rFonts')
+        rPr.insert(0, rFonts)
+    rFonts.set(qn('w:eastAsia'), name)
+
 def add_green_header(doc):
-    """Green header matching portfolio style"""
     table = doc.add_table(rows=1, cols=2)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = True
-
     tbl = table._tbl
     tblPr = tbl.tblPr if tbl.tblPr is not None else OxmlElement('w:tblPr')
     tblW = OxmlElement('w:tblW')
@@ -41,56 +50,51 @@ def add_green_header(doc):
     tblW.set(qn('w:type'), 'pct')
     tblPr.append(tblW)
 
-    # Left cell - green background
     left = table.cell(0, 0)
     left.width = Cm(12)
     shading = OxmlElement('w:shd')
     shading.set(qn('w:fill'), '5a9a5a')
     shading.set(qn('w:val'), 'clear')
     left._tc.get_or_add_tcPr().append(shading)
-
     left.paragraphs[0].clear()
-    p = left.paragraphs[0]
-    p.paragraph_format.space_before = Pt(20)
-    p.paragraph_format.space_after = Pt(0)
-    p.paragraph_format.left_indent = Cm(1.2)
 
     target_match = re.search(r'目标方向[：:]\s*(.+)', md_text)
     target = target_match.group(1).strip() if target_match else 'AIGC内容创作者'
 
+    p = left.paragraphs[0]
+    p.paragraph_format.space_before = Pt(20)
+    p.paragraph_format.space_after = Pt(0)
+    p.paragraph_format.left_indent = Cm(1.2)
     run = p.add_run(target)
-    run.font.size = Pt(20); run.font.bold = True; run.font.color.rgb = WHITE
+    set_font(run, FONT_TITLE, 22, bold=True, color=WHITE)
 
     p2 = left.add_paragraph()
     p2.paragraph_format.space_before = Pt(2)
     p2.paragraph_format.space_after = Pt(0)
     p2.paragraph_format.left_indent = Cm(1.2)
     run2 = p2.add_run('AIGC内容创作 · AI科技自媒体 · 深圳 · 15-20K')
-    run2.font.size = Pt(10); run2.font.color.rgb = WHITE
+    set_font(run2, FONT_BODY, 11, color=WHITE)
 
-    # Right cell - photo placeholder
     right = table.cell(0, 1)
     right.width = Cm(6)
     shading2 = OxmlElement('w:shd')
     shading2.set(qn('w:fill'), '3d7a3d')
     shading2.set(qn('w:val'), 'clear')
     right._tc.get_or_add_tcPr().append(shading2)
-
     right.paragraphs[0].clear()
     pr = right.paragraphs[0]
     pr.alignment = WD_ALIGN_PARAGRAPH.CENTER
     pr.paragraph_format.space_before = Pt(14)
     run_pr = pr.add_run('证件照')
-    run_pr.font.size = Pt(10); run_pr.font.color.rgb = WHITE
+    run_pr.font.size = Pt(10)
+    run_pr.font.color.rgb = WHITE
 
     doc.add_paragraph()
 
 def add_section_title(doc, title):
-    """Add a section title with green left border"""
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(14)
     p.paragraph_format.space_after = Pt(8)
-    # Add green left border via paragraph shading/border
     pPr = p._p.get_or_add_pPr()
     pBdr = OxmlElement('w:pBdr')
     left_border = OxmlElement('w:left')
@@ -100,35 +104,35 @@ def add_section_title(doc, title):
     left_border.set(qn('w:color'), '5a9a5a')
     pBdr.append(left_border)
     pPr.append(pBdr)
-
     run = p.add_run(title)
-    run.font.size = Pt(14); run.font.bold = True; run.font.color.rgb = BLACK
+    set_font(run, FONT_TITLE, 15, bold=True)
     return p
 
-def add_paragraph(doc, text, size=10, bold=False, color=BLACK, indent=0, spacing_after=4):
+def add_para(doc, text, size=12, bold=False, color=BLACK, font=None, spacing_after=4):
+    if font is None:
+        font = FONT_BODY
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(0)
     p.paragraph_format.space_after = Pt(spacing_after)
-    if indent:
-        p.paragraph_format.left_indent = Cm(indent)
+    p.paragraph_format.line_spacing = 1.5
     run = p.add_run(text)
-    run.font.size = Pt(size); run.font.bold = bold; run.font.color.rgb = color
+    set_font(run, font, size, bold, color)
     return p
 
-def add_bullet(doc, text, size=10, color=BLACK):
+def add_bullet(doc, text, size=12):
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(0)
     p.paragraph_format.space_after = Pt(2)
     p.paragraph_format.left_indent = Cm(0.8)
     p.paragraph_format.first_line_indent = Cm(-0.4)
+    p.paragraph_format.line_spacing = 1.5
     run = p.add_run('• ' + text)
-    run.font.size = Pt(size); run.font.color.rgb = color
+    set_font(run, FONT_BODY, size, color=BLACK)
     return p
 
 # ━━━━ Build Document ━━━━
 doc = Document()
 
-# Page setup - A4
 section = doc.sections[0]
 section.page_width = Cm(21.0)
 section.page_height = Cm(29.7)
@@ -137,21 +141,20 @@ section.bottom_margin = Cm(1.0)
 section.left_margin = Cm(1.5)
 section.right_margin = Cm(1.5)
 
-# Set default font
 style = doc.styles['Normal']
-style.font.name = 'Microsoft YaHei'
-style.font.size = Pt(10)
-style.paragraph_format.space_after = Pt(4)
+style.font.name = FONT_BODY
+style.font.size = Pt(12)
+style.element.rPr.rFonts.set(qn('w:eastAsia'), FONT_BODY)
+style.paragraph_format.space_after = Pt(6)
+style.paragraph_format.line_spacing = 1.5
 
-# ── Header ──
 add_green_header(doc)
 
-# ── Summary ──
+# Summary
 add_section_title(doc, '个人概述')
-summary = get_section('个人简介')
-add_paragraph(doc, summary, size=10, color=BLACK)
+add_para(doc, get_section('个人简介'), size=12)
 
-# ── Skills ──
+# Skills
 add_section_title(doc, '核心技能')
 for line in get_section('技能栈').split('\n'):
     m = re.match(r'- \*\*(.+?)\*\*: (.+)', line)
@@ -161,98 +164,91 @@ for line in get_section('技能栈').split('\n'):
         p = doc.add_paragraph()
         p.paragraph_format.space_after = Pt(6)
         run_l = p.add_run(f'{level}: ')
-        run_l.font.size = Pt(10); run_l.font.bold = True; run_l.font.color.rgb = BLACK
+        set_font(run_l, FONT_TITLE, 12, bold=True)
         run_i = p.add_run(items)
-        run_i.font.size = Pt(10); run_i.font.color.rgb = BLACK
+        set_font(run_i, FONT_BODY, 12)
 
-# ── Work Experience ──
+# Work Experience
 add_section_title(doc, '工作经历')
-exp_text = get_section('工作经历')
-for block in re.split(r'\n### ', '\n' + exp_text):
-    if not block.strip(): continue
+for block in re.split(r'\n### ', '\n' + get_section('工作经历')):
+    if not block.strip():
+        continue
     lines = block.strip().split('\n')
-    h = lines[0].replace('### ','')
+    h = lines[0].replace('### ', '')
     dur = ''
     for l in lines[1:]:
         s = l.strip()
         if s.startswith('*'):
-            dur = s.replace('*','').strip()
+            dur = s.replace('*', '').strip()
             break
-
-    add_paragraph(doc, h, size=12, bold=True, spacing_after=2)
+    add_para(doc, h, size=13, bold=True, spacing_after=2)
     if dur:
-        add_paragraph(doc, dur, size=9, color=GREEN, spacing_after=4)
-
+        add_para(doc, dur, size=10, color=GREEN, spacing_after=4)
     for l in lines[1:]:
         s = l.strip()
         if s.startswith('- ') and '技术栈' not in s:
-            add_bullet(doc, s[2:], size=10)
-    add_paragraph(doc, '', size=4, spacing_after=2)  # spacer
+            add_bullet(doc, s[2:], size=12)
+    add_para(doc, '', size=4, spacing_after=2)
 
-# ── Projects ──
+# Projects
 add_section_title(doc, '项目经验')
-proj_text = get_section('项目经验')
-for block in re.split(r'\n### ', '\n' + proj_text):
-    if not block.strip(): continue
+for block in re.split(r'\n### ', '\n' + get_section('项目经验')):
+    if not block.strip():
+        continue
     lines = block.strip().split('\n')
-    name = lines[0].replace('### ','')
+    name = lines[0].replace('### ', '')
     role = ''
     for l in lines[1:]:
         s = l.strip()
         if s.startswith('*'):
-            role = s.replace('*','').strip()
+            role = s.replace('*', '').strip()
             break
-
     header = name
-    if role: header += f'  —  {role}'
-    add_paragraph(doc, header, size=12, bold=True, spacing_after=4)
-
+    if role:
+        header += f'  —  {role}'
+    add_para(doc, header, size=13, bold=True, spacing_after=4)
     for l in lines[1:]:
         s = l.strip()
         if s.startswith('- ') and '技术栈' not in s:
-            add_bullet(doc, s[2:], size=10)
-    add_paragraph(doc, '', size=4, spacing_after=2)
+            add_bullet(doc, s[2:], size=12)
+    add_para(doc, '', size=4, spacing_after=2)
 
-# ── Education ──
+# Education
 add_section_title(doc, '教育背景')
 edu_text = get_section('教育背景')
 edu_lines = edu_text.split('\n')
-parts = edu_lines[0].replace('**','').split('|')
-edu_school = parts[0].strip() if len(parts)>0 else ''
-edu_degree = parts[1].strip() if len(parts)>1 else ''
-edu_major = parts[2].strip() if len(parts)>2 else ''
-add_paragraph(doc, f'{edu_school}  |  {edu_degree}  |  {edu_major}', size=11, bold=True)
+parts = edu_lines[0].replace('**', '').split('|')
+edu_school = parts[0].strip() if len(parts) > 0 else ''
+edu_degree = parts[1].strip() if len(parts) > 1 else ''
+edu_major = parts[2].strip() if len(parts) > 2 else ''
+add_para(doc, f'{edu_school}  |  {edu_degree}  |  {edu_major}', size=12, bold=True)
 for l in edu_lines[1:]:
     if l.strip().startswith('-'):
-        add_bullet(doc, l.strip('- ').strip(), size=10, color=BLACK)
+        add_bullet(doc, l.strip('- ').strip(), size=12)
 
-# ── Portfolio ──
+# Portfolio
 add_section_title(doc, '作品集 & 社区影响力')
-portfolio_text = get_section('作品集')
-for l in portfolio_text.split('\n'):
+for l in get_section('作品集').split('\n'):
     if l.strip().startswith('-'):
-        # Remove URLs for clean text
         text = re.sub(r'https?://[^\s)]+', '', l.strip('- ')).strip()
         if text:
-            add_paragraph(doc, text, size=10, color=BLACK, spacing_after=2)
+            add_para(doc, text, size=12, spacing_after=2)
 
-# ── Job Target ──
+# Job Target
 add_section_title(doc, '求职意向')
-job_text = get_section('求职意向')
-for l in job_text.split('\n'):
+for l in get_section('求职意向').split('\n'):
     s = l.strip('- ').strip()
     if s:
-        add_paragraph(doc, s, size=10, color=BLACK, spacing_after=2)
+        add_para(doc, s, size=12, spacing_after=2)
 
 # Footer
-add_paragraph(doc, '', size=4, spacing_after=8)
+add_para(doc, '', size=4, spacing_after=8)
 p = doc.add_paragraph()
 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = p.add_run('叁十三 · AIGC创作者  |  深圳  |  sanshisanAIGC')
-run.font.size = Pt(8); run.font.color.rgb = LGRAY
+set_font(run, FONT_BODY, 9, color=LGRAY)
 
-# ━━━━ Save ━━━━
-output = Path('data/resume_docx_output.docx')
+output = Path('data/resume_gw.docx')
 doc.save(str(output))
 print(f'Word 简历已生成: {output}')
-print(f'A4 尺寸 | 样式与HTML一致 | 可直接编辑')
+print(f'A4 尺寸 | 黑体标题 + 仿宋正文 | 公文标准字体')
