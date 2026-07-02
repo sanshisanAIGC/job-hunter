@@ -1,0 +1,2 @@
+- [打招呼语模板](greeting-messages.md) — BOSS直聘投递打招呼语，腾讯评测方向 & AIGC通用方向
+- [简历优化方法论](resume-optimization-strategy.md) — JD→简历对标优化流程，含腾讯多模态评测岗实战案例

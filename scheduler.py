@@ -23,7 +23,26 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
+import json as json_mod
+import httpx, os
+
 logger = logging.getLogger("job-hunter")
+
+def notify(text: str):
+    try:
+        resp = httpx.post(
+            "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal",
+            json={"app_id": os.getenv("FEISHU_APP_ID",""), "app_secret": os.getenv("FEISHU_APP_SECRET","")}, timeout=10)
+        token = resp.json()["tenant_access_token"]
+        open_id = os.getenv("FEISHU_NOTIFY_OPEN_ID", "")
+        if not open_id: return
+        httpx.post("https://open.feishu.cn/open-apis/im/v1/messages",
+            params={"receive_id_type": "open_id"},
+            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+            json={"receive_id": open_id, "msg_type": "text",
+                  "content": json_mod.dumps({"text": text})}, timeout=10)
+    except Exception as e:
+        logger.warning(f"通知失败: {e}")
 
 
 class JobScheduler:
@@ -53,8 +72,10 @@ class JobScheduler:
             self.pipeline.load_resume("")
             stats = self.pipeline.search_and_apply()
             logger.info(f"搜索投递完成: 搜索{stats['searched']} | 投递{stats['applied']} | 跳过{stats['skipped']}")
+            notify(f"[求职助手] 搜索投递完成: 搜{stats['searched']} | 投{stats['applied']} | 跳{stats['skipped']}")
         except Exception as e:
             logger.error(f"搜索投递失败: {e}")
+            notify(f"[求职助手] 搜索投递失败: {e}")
 
     def check_messages(self):
         """检查消息任务"""
@@ -63,6 +84,8 @@ class JobScheduler:
             self.pipeline.load_resume("")
             stats = self.pipeline.check_and_reply()
             logger.info(f"消息检查完成: 新消息{stats['new_messages']} | 已回复{stats['replied']}")
+            if stats['new_messages'] > 0:
+                notify(f"[求职助手] {stats['new_messages']}条新HR消息，已回复{stats['replied']}条")
         except Exception as e:
             logger.error(f"消息检查失败: {e}")
 
