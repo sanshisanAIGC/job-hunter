@@ -19,17 +19,14 @@ a:hover { color: #5a9a5a; }
 .stat-label { font-size: 13px; color: #666; margin-top: 4px; }
 .container { max-width: 1040px; margin: 0 auto; padding: 60px 32px; }
 .section-title { font-size: 22px; font-weight: 700; color: #1a1a1a; margin-bottom: 28px; padding-left: 14px; border-left: 3px solid #5a9a5a; letter-spacing: 1px; }
-.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-.project-card { background: #fff; border-radius: 10px; overflow: hidden; transition: all 0.3s; border: 1px solid #e8e5dd; }
-.project-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(90,154,90,0.08); border-color: #a0c8a0; }
-.card-body { padding: 22px 24px 16px; }
-.card-body h3 { font-size: 17px; color: #1a1a1a; margin-bottom: 6px; }
-.card-body .role { font-size: 12px; color: #5a9a5a; margin-bottom: 10px; }
-.card-body ul { padding-left: 18px; }
-.card-body li { font-size: 13px; color: #333; line-height: 1.7; margin-bottom: 3px; }
-.card-body li::marker { color: #5a9a5a; }
-.card-tags { padding: 10px 24px; border-top: 1px solid #f0efe8; display: flex; flex-wrap: wrap; gap: 5px; }
-.tag { font-size: 11px; padding: 2px 8px; border-radius: 3px; background: #f0efe8; color: #555; }
+.showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.showcase-card { display: block; background: #fff; border: 1px solid #e8e5dd; border-radius: 10px; overflow: hidden; transition: all 0.3s; }
+.showcase-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(90,154,90,0.08); border-color: #a0c8a0; }
+.showcase-cover { width: 100%; height: 210px; object-fit: cover; display: block; background: #f0efe8; }
+.showcase-info { padding: 14px 18px 16px; }
+.showcase-info h3 { font-size: 15px; color: #1a1a1a; margin-bottom: 8px; line-height: 1.45; }
+.showcase-meta { display: flex; gap: 16px; font-size: 12px; color: #666; flex-wrap: wrap; }
+.showcase-meta b { color: #5a9a5a; font-weight: 600; }
 .skills-section { margin: 60px 0; }
 .skill-bar-group { margin-bottom: 18px; }
 .skill-bar-label { font-size: 14px; margin-bottom: 5px; color: #1a1a1a; }
@@ -42,12 +39,6 @@ a:hover { color: #5a9a5a; }
 .link-info .name { font-size: 15px; font-weight: 600; color: #1a1a1a; }
 .link-info .desc { font-size: 12px; color: #555; }
 .link-info .url { font-size: 11px; color: #5a9a5a; word-break: break-all; }
-.timeline { position: relative; padding-left: 28px; border-left: 2px solid #ddd8c8; margin-left: 10px; }
-.timeline-item { margin-bottom: 24px; position: relative; }
-.timeline-item::before { content: ''; position: absolute; left: -35px; top: 6px; width: 12px; height: 12px; background: #fff; border: 2px solid #5a9a5a; border-radius: 50%; }
-.timeline-date { font-size: 12px; color: #5a9a5a; margin-bottom: 2px; }
-.timeline-title { font-size: 15px; font-weight: 600; color: #1a1a1a; }
-.timeline-sub { font-size: 13px; color: #555; margin-top: 2px; }
 .footer { text-align: center; padding: 40px; color: #999; font-size: 13px; border-top: 1px solid #e8e5dd; margin-top: 40px; }
 </style>
 </head>
@@ -92,74 +83,56 @@ a:hover { color: #5a9a5a; }
                 <div class="url">github.com/sanshisanAIGC</div>
             </div>
         </a>
-        <a href="https://b23.tv/PgzNC8Z" target="_blank" class="link-card">
-            <div class="link-icon">📺</div>
-            <div class="link-info">
-                <div class="name">B站 · AI教程创作者</div>
-                <div class="desc">50篇教程笔记 | 16万+阅读量</div>
-                <div class="url">b23.tv/PgzNC8Z</div>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 56px;">精选模型 · Liblib</h2>
+    <div class="showcase-grid">
+        <a href="https://www.liblib.art/modelinfo/aa986df223a24f24b0e0581cf51f21cd" target="_blank" class="showcase-card">
+            <img class="showcase-cover" src="https://images-wm.liblib.cloud/img/494bc2ddc8844273b05f63827b4dbcc5/e74d5b52129c79aa26c98ce1711a0d87360eaa27514d73c5c8d4bf33a10351ff.png" alt="游戏场景设计-原神蒙德篇" loading="lazy">
+            <div class="showcase-info">
+                <h3>游戏场景设计 · 原神蒙德篇</h3>
+                <div class="showcase-meta"><span>使用 <b>8.5K+</b></span><span>点赞 <b>62</b></span><span>LoRA</span></div>
+            </div>
+        </a>
+        <a href="https://www.liblib.art/modelinfo/b142639713d84612817a13f94949728b" target="_blank" class="showcase-card">
+            <img class="showcase-cover" src="https://images-wm.liblib.cloud/img/494bc2ddc8844273b05f63827b4dbcc5/e939ec4c670e930d6c691dc36cc112925d022f4697e224ad37da6e8ba4a7fc75.jpg" alt="风景园林景观设计AI效果图渲染" loading="lazy">
+            <div class="showcase-info">
+                <h3>风景园林景观设计 AI 效果图渲染</h3>
+                <div class="showcase-meta"><span>使用 <b>1.9K+</b></span><span>点赞 <b>63</b></span><span>LoRA</span></div>
+            </div>
+        </a>
+        <a href="https://www.liblib.art/modelinfo/305d671284af40fd975d12b59bd92935" target="_blank" class="showcase-card">
+            <img class="showcase-cover" src="https://images-wm.liblib.cloud/img/494bc2ddc8844273b05f63827b4dbcc5/722c95aed3d54cb17888032745328c32a664a268650d7799809faee886486c5e.png" alt="AI生成平面图方案（园林/景观/环艺）" loading="lazy">
+            <div class="showcase-info">
+                <h3>AI 生成平面图方案（园林/景观/环艺）</h3>
+                <div class="showcase-meta"><span>使用 <b>4.2K+</b></span><span>点赞 <b>38</b></span><span>LoRA</span></div>
             </div>
         </a>
     </div>
 
-    <h2 class="section-title">开源项目</h2>
-    <div class="project-grid">
-        <div class="project-card">
-            <div class="card-body">
-                <h3>novel-factory</h3>
-                <div class="role">独立开发者 | AI长篇小说自动写作系统</div>
-                <ul>
-                    <li>AI作者/编辑/审校多Agent协作，全自动写作→审校→发布</li>
-                    <li>DeepSeek v4 Pro驱动，集成飞书文档API云端同步</li>
-                    <li>systemd守护进程7×24运行，单次生成10万字长篇</li>
-                </ul>
+    <h2 class="section-title" style="margin-top: 56px;">精选 AI 视频 · 小红书</h2>
+    <div class="showcase-grid">
+        <a href="https://www.xiaohongshu.com/discovery/item/6a75901c000000002500b89f?source=webshare&xhsshare=pc_web&xsec_token=ABCtztaQCPb5FH44gMDr_7vmiL7vPuUIjoNw4bEGXu7Io=&xsec_source=pc_share" target="_blank" class="showcase-card">
+            <img class="showcase-cover" src="covers/xhs-bugatti.jpg" alt="中国设计师为世界造了一台布加迪" loading="lazy">
+            <div class="showcase-info">
+                <h3>中国设计师为世界造了一台布加迪</h3>
+                <div class="showcase-meta"><span>点赞 <b>59</b></span><span>AI视频</span></div>
             </div>
-            <div class="card-tags">
-                <span class="tag">Python</span><span class="tag">DeepSeek</span><span class="tag">多Agent</span><span class="tag">飞书API</span><span class="tag">systemd</span>
+        </a>
+        <a href="https://www.xiaohongshu.com/discovery/item/6a7c3db50000000026035ed0?source=webshare&xhsshare=pc_web&xsec_token=ABzkmTRzmb2oEAeLvJMJExY1dzFhYQ027CmSBDCpclhN0=&xsec_source=pc_share" target="_blank" class="showcase-card">
+            <img class="showcase-cover" src="covers/xhs-tengshiz.jpg" alt="腾势Z 绿宝石超跑，被当成珠宝展一镜到底" loading="lazy">
+            <div class="showcase-info">
+                <h3>腾势Z 绿宝石超跑，一镜到底珠宝展</h3>
+                <div class="showcase-meta"><span>点赞 <b>21</b></span><span>AI视频</span></div>
             </div>
-        </div>
-        <div class="project-card">
-            <div class="card-body">
-                <h3>bilibili-to-feishu-note-bot</h3>
-                <div class="role">独立开发者 | B站视频→AI结构化笔记机器人</div>
-                <ul>
-                    <li>视频下载→Whisper转录→DeepSeek结构化笔记全流程自动化</li>
-                    <li>自动生成带时间戳、关键观点的飞书文档，准确率90%+</li>
-                    <li>定时监控UP主更新，累计处理视频500+个</li>
-                </ul>
+        </a>
+        <a href="https://www.xiaohongshu.com/discovery/item/69c92b66000000001a0232b8?source=webshare&xhsshare=pc_web&xsec_token=ABVBLUHbecp9tE-BR6_qC2VN7Y4lh9D360bMmT33dOlYA=&xsec_source=pc_share" target="_blank" class="showcase-card">
+            <img class="showcase-cover" src="covers/xhs-vgt.jpg" alt="xiaomi VGT｜速度美学｜AI视频｜赛道·赛博" loading="lazy">
+            <div class="showcase-info">
+                <h3>xiaomi VGT｜速度美学｜赛道·赛博</h3>
+                <div class="showcase-meta"><span>点赞 <b>12</b></span><span>AI视频</span></div>
             </div>
-            <div class="card-tags">
-                <span class="tag">Python</span><span class="tag">Whisper</span><span class="tag">DeepSeek</span><span class="tag">B站API</span><span class="tag">ffmpeg</span>
-            </div>
-        </div>
-        <div class="project-card">
-            <div class="card-body">
-                <h3>job-hunter</h3>
-                <div class="role">独立开发者 | Boss直聘AI自动求职系统</div>
-                <ul>
-                    <li>AI简历解析+JD深度匹配评分+个性化招呼语自动生成</li>
-                    <li>boss-agent-cli集成，支持自动搜索/收藏/投递</li>
-                    <li>AI事实核查+飞书实时通知，全流程自动化</li>
-                </ul>
-            </div>
-            <div class="card-tags">
-                <span class="tag">Python</span><span class="tag">DeepSeek</span><span class="tag">Playwright</span><span class="tag">Agent</span><span class="tag">飞书</span>
-            </div>
-        </div>
-        <div class="project-card">
-            <div class="card-body">
-                <h3>hot-article-factory</h3>
-                <div class="role">独立开发者 | AI热搜文章自动生产系统</div>
-                <ul>
-                    <li>微博/抖音热搜实时抓取+AI选题+AI写作+AI事实核查</li>
-                    <li>头条风格评论文章生成（800-1500字），每日3篇</li>
-                    <li>全链路无人值守，每日成本约¥0.03</li>
-                </ul>
-            </div>
-            <div class="card-tags">
-                <span class="tag">Python</span><span class="tag">DeepSeek</span><span class="tag">Playwright</span><span class="tag">数据采集</span><span class="tag">调度</span>
-            </div>
-        </div>
+        </a>
     </div>
 
     <div class="skills-section">
@@ -187,27 +160,6 @@ a:hover { color: #5a9a5a; }
         <div class="skill-bar-group">
             <div class="skill-bar-label">Photoshop / 剪映 / 后期处理</div>
             <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
-        </div>
-    </div>
-
-    <div style="margin-top: 60px;">
-        <h2 class="section-title">工作历程</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">2026.03 — 2026.06</div>
-                <div class="timeline-title">AI训练师 @ 深圳安达曼科技</div>
-                <div class="timeline-sub">模型训练 + Agent工具链探索（Claude Code / Codex / Open Claw），明确AI科技自媒体职业方向</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2023.12 — 2026.01</div>
-                <div class="timeline-title">AI训练负责人 @ 草图里（广州）科技</div>
-                <div class="timeline-sub">管理10+人团队，搭建70+工作流库，推动研发成果产品化</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2022.12 — 2023.12</div>
-                <div class="timeline-title">AIGC技术应用与行业实践</div>
-                <div class="timeline-sub">B站AIGC内容创作起步，为2家企业搭建AIGC设计管线</div>
-            </div>
         </div>
     </div>
 </div>
