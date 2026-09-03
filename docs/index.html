@@ -27,6 +27,17 @@ a:hover { color: #5a9a5a; }
 .showcase-info h3 { font-size: 15px; color: #1a1a1a; margin-bottom: 8px; line-height: 1.45; }
 .showcase-meta { display: flex; gap: 16px; font-size: 12px; color: #666; flex-wrap: wrap; }
 .showcase-meta b { color: #5a9a5a; font-weight: 600; }
+.repo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.repo-card { display: flex; flex-direction: column; background: #fff; border: 1px solid #e8e5dd; border-radius: 10px; overflow: hidden; transition: all 0.3s; }
+.repo-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(90,154,90,0.08); border-color: #a0c8a0; }
+.repo-card .card-body { padding: 20px 22px 14px; flex: 1; }
+.repo-card h3 { font-size: 16px; color: #1a1a1a; margin-bottom: 4px; }
+.repo-card .role { font-size: 12px; color: #5a9a5a; margin-bottom: 10px; }
+.repo-card ul { padding-left: 18px; }
+.repo-card li { font-size: 13px; color: #333; line-height: 1.7; margin-bottom: 3px; }
+.repo-card li::marker { color: #5a9a5a; }
+.card-tags { padding: 10px 22px; border-top: 1px solid #f0efe8; display: flex; flex-wrap: wrap; gap: 5px; }
+.tag { font-size: 11px; padding: 2px 8px; border-radius: 3px; background: #f0efe8; color: #555; }
 .skills-section { margin: 60px 0; }
 .skill-bar-group { margin-bottom: 18px; }
 .skill-bar-label { font-size: 14px; margin-bottom: 5px; color: #1a1a1a; }
@@ -52,7 +63,7 @@ a:hover { color: #5a9a5a; }
         <div class="stat-item"><div class="stat-num">70+</div><div class="stat-label">ComfyUI工作流</div></div>
         <div class="stat-item"><div class="stat-num">80K+</div><div class="stat-label">Liblib模型使用量</div></div>
         <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">LoRA模型/作品发布</div></div>
-        <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">GitHub开源项目</div></div>
+        <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">GitHub开源项目</div></div>
     </div>
 </div>
 
@@ -79,7 +90,7 @@ a:hover { color: #5a9a5a; }
             <div class="link-icon">💻</div>
             <div class="link-info">
                 <div class="name">GitHub · sanshisanAIGC</div>
-                <div class="desc">4个开源项目 | Python全栈</div>
+                <div class="desc">12个开源项目 | Python全栈</div>
                 <div class="url">github.com/sanshisanAIGC</div>
             </div>
         </a>
@@ -131,6 +142,52 @@ a:hover { color: #5a9a5a; }
             <div class="showcase-info">
                 <h3>xiaomi VGT｜速度美学｜赛道·赛博</h3>
                 <div class="showcase-meta"><span>点赞 <b>12</b></span><span>AI视频</span></div>
+            </div>
+        </a>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 56px;">精选开源项目 · GitHub</h2>
+    <div class="repo-grid">
+        <a href="https://github.com/sanshisanAIGC/h3-short-video" target="_blank" class="repo-card">
+            <div class="card-body">
+                <h3>h3-short-video</h3>
+                <div class="role">MiniMax H3 短视频工厂 · AI 视频 Agent 管线</div>
+                <ul>
+                    <li>Prompt 工程→图生视频→AI 高清修复→自动配乐全流程管线</li>
+                    <li>汽车概念广告批量化生产，总播放量破万</li>
+                    <li>单条成本 ¥2.5-12，约为同类模型 Seedance 的 1/12</li>
+                </ul>
+            </div>
+            <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">MiniMax H3</span><span class="tag">Prompt工程</span><span class="tag">FFmpeg</span><span class="tag">Topaz</span>
+            </div>
+        </a>
+        <a href="https://github.com/sanshisanAIGC/aigc-media" target="_blank" class="repo-card">
+            <div class="card-body">
+                <h3>aigc-media</h3>
+                <div class="role">AI 自媒体内容自动化管线 · 公众号「叁十三-AIGC」</div>
+                <ul>
+                    <li>竞品雷达选题→AI 写稿→AI 联网事实核查→公众号 API 发布全链路自动化</li>
+                    <li>双重 AI 审核（写稿+逐条联网核验），AI 感降至 10% 以下</li>
+                    <li>基于公众号后台数据验证传播模式，反哺选题策略</li>
+                </ul>
+            </div>
+            <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">DeepSeek</span><span class="tag">RSS</span><span class="tag">公众号API</span><span class="tag">知乎</span>
+            </div>
+        </a>
+        <a href="https://github.com/sanshisanAIGC/video-pipeline" target="_blank" class="repo-card">
+            <div class="card-body">
+                <h3>video-pipeline</h3>
+                <div class="role">公众号文章 → 多平台视频全自动转换</div>
+                <ul>
+                    <li>AI 分镜脚本→TTS 配音→素材智能匹配→自动剪辑成片</li>
+                    <li>全免费工具链（Edge-TTS / Pexels / MoviePy / FFmpeg）</li>
+                    <li>与 aigc-media 联动，图文内容一键视频化分发</li>
+                </ul>
+            </div>
+            <div class="card-tags">
+                <span class="tag">Python</span><span class="tag">Edge-TTS</span><span class="tag">Pexels API</span><span class="tag">MoviePy</span><span class="tag">FFmpeg</span>
             </div>
         </a>
     </div>
