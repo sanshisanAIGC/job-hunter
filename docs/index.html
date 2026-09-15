@@ -51,6 +51,15 @@ a:hover { color: #5a9a5a; }
 .link-info .desc { font-size: 12px; color: #555; }
 .link-info .url { font-size: 11px; color: #5a9a5a; word-break: break-all; }
 .footer { text-align: center; padding: 40px; color: #999; font-size: 13px; border-top: 1px solid #e8e5dd; margin-top: 40px; }
+.photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 640px) { .photo-grid { grid-template-columns: 1fr; } }
+.photo-pair { margin: 0; background: #fff; border: 1px solid #e8e5dd; border-radius: 10px; overflow: hidden; transition: all 0.3s; }
+.photo-pair:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(90,154,90,0.08); border-color: #a0c8a0; }
+.photo-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; background: #f0efe8; align-items: start; }
+.photo-duo img { width: 100%; height: auto; display: block; }
+.photo-duo.sync { align-items: stretch; }
+.photo-duo.sync img { height: 100%; object-fit: cover; }
+.photo-pair figcaption { text-align: center; font-size: 13px; color: #1a1a1a; padding: 10px 12px; letter-spacing: 1px; }
 </style>
 </head>
 <body>
@@ -218,6 +227,136 @@ a:hover { color: #5a9a5a; }
             <div class="skill-bar-label">Photoshop / 剪映 / 后期处理</div>
             <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
         </div>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 56px;">摄影爱好</h2>
+    <div class="photo-grid">
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/beijing-qiniandian-1.jpg" alt="北京 祈年殿" loading="lazy">
+                <img src="photos/beijing-qiniandian-2.jpg" alt="北京 祈年殿" loading="lazy">
+            </div>
+            <figcaption>北京 祈年殿</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo sync">
+                <img src="photos/tianyuan-difang-1.jpg" alt="天圆地方（天坛与地坛）" loading="lazy">
+                <img src="photos/tianyuan-difang-2.jpg" alt="天圆地方（天坛与地坛）" loading="lazy">
+            </div>
+            <figcaption>天圆地方（天坛与地坛）</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/yiheyuan-1.jpg" alt="颐和园" loading="lazy">
+                <img src="photos/yiheyuan-2.jpg" alt="颐和园" loading="lazy">
+            </div>
+            <figcaption>颐和园</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/yuanmingyuan-1.jpg" alt="圆明园" loading="lazy">
+                <img src="photos/yuanmingyuan-2.jpg" alt="圆明园" loading="lazy">
+            </div>
+            <figcaption>圆明园</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/dusk-architecture-1.jpg" alt="暮色 建筑" loading="lazy">
+                <img src="photos/dusk-architecture-2.jpg" alt="暮色 建筑" loading="lazy">
+            </div>
+            <figcaption>暮色 建筑</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/autumn-mood-1.jpg" alt="秋日 氛围" loading="lazy">
+                <img src="photos/autumn-mood-2.jpg" alt="秋日 氛围" loading="lazy">
+            </div>
+            <figcaption>秋日 氛围</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/shenzhen-park-1.jpg" alt="深圳 公园" loading="lazy">
+                <img src="photos/shenzhen-park-2.jpg" alt="深圳 公园" loading="lazy">
+            </div>
+            <figcaption>深圳 公园</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/chaozhou-fenghuangtianchi-1.jpg" alt="潮州 凤凰天池" loading="lazy">
+                <img src="photos/chaozhou-fenghuangtianchi-2.jpg" alt="潮州 凤凰天池" loading="lazy">
+            </div>
+            <figcaption>潮州 凤凰天池</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/guangzhou-tower-1.jpg" alt="广州塔" loading="lazy">
+                <img src="photos/guangzhou-tower-2.jpg" alt="广州塔" loading="lazy">
+            </div>
+            <figcaption>广州塔</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo sync">
+                <img src="photos/guangzhou-light-festival-1.jpg" alt="广州灯光节" loading="lazy">
+                <img src="photos/guangzhou-light-festival-2.jpg" alt="广州灯光节" loading="lazy">
+            </div>
+            <figcaption>广州灯光节</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/zhujiangxincheng-sunset-1.jpg" alt="珠江新城日落" loading="lazy">
+                <img src="photos/zhujiangxincheng-sunset-2.jpg" alt="珠江新城日落" loading="lazy">
+            </div>
+            <figcaption>珠江新城日落</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/yuehaiguan-night-portrait-1.jpg" alt="粤海关 夜景人像" loading="lazy">
+                <img src="photos/yuehaiguan-night-portrait-2.jpg" alt="粤海关 夜景人像" loading="lazy">
+            </div>
+            <figcaption>粤海关 夜景人像</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/comiccon-portrait-1-1.jpg" alt="漫展 人像" loading="lazy">
+                <img src="photos/comiccon-portrait-1-2.jpg" alt="漫展 人像" loading="lazy">
+            </div>
+            <figcaption>漫展 人像（一）</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/comiccon-portrait-2-1.jpg" alt="漫展 人像" loading="lazy">
+                <img src="photos/comiccon-portrait-2-2.jpg" alt="漫展 人像" loading="lazy">
+            </div>
+            <figcaption>漫展 人像（二）</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/ama-director-actors-1.jpg" alt="给阿嬷的情书导演演员" loading="lazy">
+                <img src="photos/ama-director-actors-2.jpg" alt="给阿嬷的情书导演演员" loading="lazy">
+            </div>
+            <figcaption>给阿嬷的情书 · 导演演员</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/ama-location-1.jpg" alt="给阿嬷的情书取景地" loading="lazy">
+                <img src="photos/ama-location-2.jpg" alt="给阿嬷的情书取景地" loading="lazy">
+            </div>
+            <figcaption>给阿嬷的情书 · 取景地</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/yunnan-yulong-1.jpg" alt="云南 玉龙雪山" loading="lazy">
+                <img src="photos/yunnan-yulong-2.jpg" alt="云南 玉龙雪山" loading="lazy">
+            </div>
+            <figcaption>云南 玉龙雪山</figcaption>
+        </figure>
+        <figure class="photo-pair">
+            <div class="photo-duo">
+                <img src="photos/yunnan-jinshan-1.jpg" alt="云南 日照金山" loading="lazy">
+                <img src="photos/yunnan-jinshan-2.jpg" alt="云南 日照金山" loading="lazy">
+            </div>
+            <figcaption>云南 日照金山</figcaption>
+        </figure>
     </div>
 </div>
 
